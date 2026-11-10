@@ -20,3 +20,6 @@ __pycache__/
 .idea/
 .DS_Store
 *.docx
+*.jsonl
+reviews_labeled.csv
+reviews_labeled_train.csv
