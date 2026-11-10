@@ -1,0 +1,21 @@
+# Môi trường ảo (Virtual Environment)
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Thư mục chứa model và báo cáo (vì file nặng)
+# models/
+# reports/
+# *.joblib
+
+# Dữ liệu (Nếu file CSV của bạn quá lớn, hãy bỏ comment dòng dưới)
+# reviews.csv
+
+# File cấu hình của IDE
+.vscode/
+.idea/
+.DS_Store
