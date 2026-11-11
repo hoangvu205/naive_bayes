@@ -1,7 +1,7 @@
 """Train và so sánh hai phiên bản feature cho manual Naive Bayes.
 
 Script thực hiện:
-1. Đọc và làm sạch reviews.csv.
+1. Đọc và làm sạch dataset_labeled.csv.
 2. Chia train/test 80/20, stratify theo nhãn.
 3. Train/evaluate BoW và TF-IDF trên cùng một split.
 4. Lưu confusion matrix cho từng phiên bản.
@@ -44,7 +44,7 @@ from src.vectorizers import (  # hai loại vectorizer
     make_tfidf_vectorizer,
 )
 
-DATA_PATH = ROOT / "reviews.csv"  # dữ liệu train
+DATA_PATH = ROOT / "dataset_labeled.csv"  # dữ liệu train
 MODEL_DIR = ROOT / "models"  # thư mục lưu model
 REPORT_DIR = ROOT / "reports"  # thư mục lưu ảnh/report
 RANDOM_STATE = 42  # seed để tái lập kết quả
@@ -142,6 +142,9 @@ def main():
     5. In bảng so sánh metrics giữa BoW và TF-IDF.
     """
     df = pd.read_csv(DATA_PATH, encoding="utf-8-sig")  # đọc CSV
+    df = df[["text", "label"]].dropna()
+    df = df.rename(columns={"text": "review_text"})
+    df["sentiment"] = df["label"].map({1: "Positive", -1: "Negative"})
     df = df[["review_text", "sentiment"]].dropna()  # bỏ dòng thiếu text/nhãn
     df["review_text"] = df["review_text"].astype(str).str.strip()  # chuẩn hoá text
     df["sentiment"] = df["sentiment"].astype(str).str.strip().str.title()  # chuẩn hoá nhãn
